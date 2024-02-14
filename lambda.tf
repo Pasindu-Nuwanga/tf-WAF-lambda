@@ -43,6 +43,10 @@ resource "aws_lambda_function" "test_lambda" {
   runtime = "python3.9"
   timeout = 10
 
+  tags = {
+      Name = "pasindu-waf-lambda-function"
+    }
+
   layers = ["arn:aws:lambda:us-east-1:336392948345:layer:AWSSDKPandas-Python39:1"]
 
   environment {
@@ -56,9 +60,4 @@ resource "aws_lambda_function" "test_lambda" {
     aws_wafv2_ip_set.ip_set_01,
     aws_wafv2_ip_set.ip_set_02
   ]
-}
-
-resource "aws_lambda_function_event_invoke_config" "test_event" {
-  function_name = aws_lambda_function.test_lambda.function_name
-  qualifier     = "$LATEST"
 }
